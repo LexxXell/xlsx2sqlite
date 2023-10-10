@@ -1,0 +1,21 @@
+{
+  "name": "xlsx2sql",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn tsc && node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.3",
+    "@types/sqlite3": "^3.1.9",
+    "@types/xlsx": "^0.0.36",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "sqlite3": "^5.1.6",
+    "xlsx": "^0.18.5"
+  }
+}
