@@ -4,7 +4,9 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "yarn tsc && node dist/index.js"
+    "dev": "yarn tsc && node dist/index.js",
+    "migrate": "yarn tsc && node dist/migrations.js",
+    "test": "yarn tsc && node dist/test.js"
   },
   "devDependencies": {
     "@types/node": "^20.8.3",

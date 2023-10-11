@@ -1,27 +1,28 @@
-// import { tableToPersonsData } from './helpers';
-// tableToPersonsData('data/test (2).xlsx');
+import {
+  Logger,
+  checkFileExt,
+  getAllFilePaths,
+  permittedExt,
+  processFileAndPushInDB,
+  xlsxDirectoryPath,
+} from './helpers';
 
-import * as sqlite3 from 'sqlite3';
-import { Logger } from './helpers';
+const logger = new Logger('MAIN');
 
-const logger = new Logger('DataBase');
-
-function createDatabase(databaseName: string) {
-  const db = new sqlite3.Database(databaseName, (err) => {
-    if (err) {
-      logger.error(`Error during database creation: ${err.message}`);
-    } else {
-      logger.log(`Database ${databaseName} has been successfully created`);
+async function main() {
+  try {
+    const filepaths = getAllFilePaths(xlsxDirectoryPath);
+    for (let filepath of filepaths) {
+      if (!checkFileExt(filepath, permittedExt)) {
+        continue;
+      }
+      await processFileAndPushInDB(filepath);
     }
-  });
-
-  db.close((err) => {
-    if (err) {
-      logger.error(`Database closing error: ${err.message}`);
-    } else {
-      logger.log(`Database ${databaseName} has been successfully closed`);
-    }
-  });
+  } catch (e) {
+    logger.error((e as Error).message);
+  }
 }
 
-createDatabase('db/mydatabase.db');
+if (require.main === module) {
+  main();
+}
