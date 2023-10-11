@@ -28,6 +28,12 @@ You can install these dependencies using npm or yarn.
 
 ## Usage
 
+Before use:
+
+```bash
+yarn migrate
+```
+
 To use this library, follow these steps:
 
 1. Create a configuration file to define how table columns should be mapped. This configuration file can be found in `helpers/constants.helper.ts` and is named `mapTablePattern`. You can customize the mapping rules to match your specific dataset.
