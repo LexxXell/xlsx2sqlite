@@ -5,6 +5,7 @@ export function getIndexesByNameset(
 ): Array<number> {
   let result: Array<number> = [];
   headers.forEach((value_h, index) => {
+    value_h = value_h.toLowerCase();
     if (
       nameIncludes.some((value_n) => matchValues(value_h, value_n)) &&
       !nameExcludes?.some((value_n) => matchValues(value_h, value_n))

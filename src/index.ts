@@ -14,6 +14,7 @@ async function main() {
     const filepaths = getAllFilePaths(xlsxDirectoryPath);
     for (let filepath of filepaths) {
       if (!checkFileExt(filepath, permittedExt)) {
+        logger.log(`Excluded file: ${filepath}`);
         continue;
       }
       await processFileAndPushInDB(filepath);

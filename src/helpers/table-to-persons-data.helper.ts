@@ -9,7 +9,11 @@ export function tableToPersonsData(filepath: string): IPersonData[] {
   const personsData: IPersonData[] = [];
   const tablesJson = tableFileToJson(filepath);
   tablesJson.forEach((tableJson: any[][]) => {
-    const keyAndIndexes = mapTableHeaderToKeyAndIndexes(tableJson[indexHeader]);
+    const headers = tableJson[indexHeader];
+    if (!headers) {
+      return false;
+    }
+    const keyAndIndexes = mapTableHeaderToKeyAndIndexes(headers);
     if (Object.keys(keyAndIndexes).every((key) => !keyAndIndexes[key].length)) {
       logger.warn('The table header has no database key mappings');
     }

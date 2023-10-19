@@ -16,7 +16,7 @@ export const mapTablePattern: MapTablePattern = {
   },
 };
 
-export const xlsxDirectoryPath = 'data';
+export const xlsxDirectoryPath = '/home/lexx/Загрузки/xlsxArcheves/xlsx2sql/data';
 
 export const indexHeader = 0;
 
