@@ -34,6 +34,6 @@ export const createDbQuery = `
 );
 `;
 
-export const transactionStep = 100;
+export const transactionStep = 500;
 
 export const permittedExt = ['.xlsx', '.xls', '.csv', '.ods'];
