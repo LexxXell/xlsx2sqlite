@@ -23,7 +23,8 @@ export const indexHeader = 0;
 export const myDatabase = new Database('db/mydatabase.db', new Logger('Database'));
 
 export const createDbQuery = `
-    CREATE TABLE IF NOT EXISTS person (
+  CREATE TABLE IF NOT EXISTS person (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT DEFAULT NULL,
     email TEXT DEFAULT NULL,
     phone TEXT DEFAULT NULL,
@@ -31,7 +32,7 @@ export const createDbQuery = `
     location TEXT DEFAULT NULL,
     raw_data TEXT DEFAULT NULL,
     filepath TEXT DEFAULT NULL
-);
+  );
 `;
 
 export const transactionStep = 500;
