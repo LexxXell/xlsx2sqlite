@@ -1,6 +1,7 @@
 import { indexHeader, mapTableHeaderToKeyAndIndexes, rowToRawData, tableFileToJson } from '.';
 import { IPersonData } from '../@types';
 import { PersonData } from '../classes';
+import { getPersonLocation } from './get-person-location.helper';
 import { Logger } from './logger.helper';
 
 const logger = new Logger('tableToPersonsData');
@@ -30,6 +31,7 @@ export function tableToPersonsData(filepath: string): IPersonData[] {
           .map((index: number) => tableJson[indexRow][index])
           .join(', ');
       });
+      personData.location = getPersonLocation(personData);
       personsData.push(personData);
     }
   });

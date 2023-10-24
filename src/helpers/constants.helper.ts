@@ -20,7 +20,7 @@ export const xlsxDirectoryPath = '/home/lexx/Загрузки/xlsxArcheves/xlsx2
 
 export const indexHeader = 0;
 
-export const myDatabase = new Database('db/mydatabase.db', new Logger('Database'));
+export const myDatabase = new Database('/home/lexx/persons_db/db/mydatabase.db', new Logger('Database'));
 
 export const createDbQuery = `
   CREATE TABLE IF NOT EXISTS person (

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "yarn tsc && node dist/index.js",
     "migrate": "yarn tsc && node dist/migrations.js",
-    "test": "yarn tsc && node dist/test.js"
+    "test": "yarn tsc && node --max-old-space-size=16000 dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^20.8.3",
@@ -17,6 +17,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
+    "libphonenumber-js": "^1.10.48",
     "sqlite3": "^5.1.6",
     "xlsx": "^0.18.5"
   }
