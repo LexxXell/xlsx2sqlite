@@ -1,12 +1,12 @@
-import { indexHeader, mapTableHeaderToKeyAndIndexes, rowToRawData, tableFileToJson } from '.';
-import { IPersonData } from '../@types';
+import { emptyDataValues, indexHeader, mapTableHeaderToKeyAndIndexes, rowToRawData, tableFileToJson } from '.';
+import { IPerson, IPersonData } from '../@types';
 import { PersonData } from '../classes';
 import { getPersonLocation } from './get-person-location.helper';
 import { Logger } from './logger.helper';
 
 const logger = new Logger('tableToPersonsData');
 
-export function tableToPersonsData(filepath: string): IPersonData[] {
+export function tableToPersonsData(filepath: string, file_id: number): IPersonData[] {
   const personsData: IPersonData[] = [];
   const tablesJson = tableFileToJson(filepath);
   tablesJson.forEach((tableJson: any[][]) => {
@@ -25,11 +25,10 @@ export function tableToPersonsData(filepath: string): IPersonData[] {
         logger.info(`${indexRow - 1} rows processed`);
       }
       if (indexRow === indexHeader) continue;
-      const personData = new PersonData(filepath, rowToRawData(tableJson[indexRow], tableJson[indexHeader]));
+      const personData = new PersonData(file_id, rowToRawData(tableJson[indexRow], tableJson[indexHeader]));
       Object.keys(keyAndIndexes).forEach((key) => {
-        personData[key as keyof PersonData] = keyAndIndexes[key]
-          .map((index: number) => tableJson[indexRow][index])
-          .join(', ');
+        const data = keyAndIndexes[key].map((index: number) => tableJson[indexRow][index]).join(', ');
+        personData[key as keyof IPerson] = emptyDataValues.includes(data) ? '' : data;
       });
       personData.location = getPersonLocation(personData);
       personsData.push(personData);

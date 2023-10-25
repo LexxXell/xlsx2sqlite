@@ -16,11 +16,42 @@ export const mapTablePattern: MapTablePattern = {
   },
 };
 
-export const xlsxDirectoryPath = '/home/lexx/Загрузки/xlsxArcheves/xlsx2sql/data';
+export const emptyDataValues = ['*', 'undefined'];
+
+/* ** xlsxDirectoryPath & dbPath ** */
+
+const args = process.argv.slice(2);
+export let xlsxDirectoryPath: string = '';
+let dbPath: string = '';
+
+for (let i = 0; i < args.length; i += 2) {
+  const key = args[i];
+  const value = args[i + 1];
+  switch (key) {
+    case '--fpath':
+      xlsxDirectoryPath = value;
+      break;
+    case '--dbpath':
+      dbPath = value;
+      break;
+    default:
+      break;
+  }
+}
+
+if (!xlsxDirectoryPath) {
+  xlsxDirectoryPath = process.env.XLSX_DIR_PATH || 'data';
+}
+
+if (!dbPath) {
+  dbPath = process.env.DB_PATH || 'db/mydatabase.db';
+}
+
+/* **** */
 
 export const indexHeader = 0;
 
-export const myDatabase = new Database('/home/lexx/persons_db/db/mydatabase.db', new Logger('Database'));
+export const myDatabase = new Database(dbPath, new Logger('Database'));
 
 export const createDbQuery = `
   CREATE TABLE IF NOT EXISTS person (
@@ -31,7 +62,13 @@ export const createDbQuery = `
     mobile TEXT DEFAULT NULL,
     location TEXT DEFAULT NULL,
     raw_data TEXT DEFAULT NULL,
-    filepath TEXT DEFAULT NULL
+    file_id INTEGER,
+    FOREIGN KEY (file_id) REFERENCES file(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS file (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    path TEXT NOT NULL
   );
 `;
 

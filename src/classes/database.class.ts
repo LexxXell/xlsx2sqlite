@@ -2,7 +2,7 @@ import * as sqlite3 from 'sqlite3';
 import { ILogger } from '../@types';
 
 export class Database {
-  private db: sqlite3.Database;
+  db: sqlite3.Database;
   private logger: ILogger = console;
 
   constructor(private databaseName: string, logger?: ILogger) {
@@ -12,6 +12,13 @@ export class Database {
         this.logger.error(`Error opening database ${databaseName}: ${err.message}`);
       } else {
         this.logger.log(`Database ${databaseName} successfully opened`);
+        this.db.run('PRAGMA foreign_keys = ON;', (err) => {
+          if (err) {
+            this.logger.error(`Error setting foreign_keys on for ${databaseName}: ${err.message}`);
+          } else {
+            this.logger.log(`Foreign keys enabled for ${databaseName}`);
+          }
+        });
       }
     });
   }
@@ -70,13 +77,20 @@ export class Database {
     }
   }
 
-  close(): void {
-    this.db.close((err) => {
-      if (err) {
-        this.logger.error(`Error when closing database ${this.databaseName}: ${err.message}`);
-      } else {
-        this.logger.log(`Database ${this.databaseName} has been successfully closed`);
-      }
-    });
+  async close() {
+    try {
+      await new Promise((resolve, reject) => {
+        this.db.close((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(null);
+          }
+        });
+      });
+      this.logger.log(`Database ${this.databaseName} has been successfully closed`);
+    } catch (err) {
+      this.logger.error(`Error when closing database ${this.databaseName}: ${(err as Error).message}`);
+    }
   }
 }

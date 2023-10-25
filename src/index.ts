@@ -1,3 +1,4 @@
+import './helpers/init-env.helper';
 import {
   Logger,
   checkFileExt,

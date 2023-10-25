@@ -6,16 +6,16 @@ export class PersonData implements IPersonData {
   public phone: string;
   public mobile: string;
   public location: string;
-  public filepath: string;
+  public file_id: number;
   public raw_data: string;
 
-  constructor(filepath: string, raw_data: string) {
+  constructor(file_id: number, raw_data: string) {
     this.name = '';
     this.email = '';
     this.phone = '';
     this.mobile = '';
     this.location = '';
-    this.filepath = filepath;
+    this.file_id = file_id;
     this.raw_data = raw_data;
   }
 }
