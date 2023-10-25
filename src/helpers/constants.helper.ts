@@ -1,6 +1,9 @@
+import './init-env.helper';
 import { MapTablePattern } from '../@types';
 import { Database } from '../classes';
 import { Logger } from './logger.helper';
+
+const logger = new Logger('Constants');
 
 export const mapTablePattern: MapTablePattern = {
   name: { include: ['name', 'member', 'customer'], exclude: ['number', 'project', 'building', 'company'] },
@@ -46,6 +49,9 @@ if (!xlsxDirectoryPath) {
 if (!dbPath) {
   dbPath = process.env.DB_PATH || 'db/mydatabase.db';
 }
+
+logger.log('xlsxDirectoryPath', xlsxDirectoryPath);
+logger.log('dbPath', dbPath);
 
 /* **** */
 

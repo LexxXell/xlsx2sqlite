@@ -1,7 +1,8 @@
-import * as sqlite3 from 'sqlite3';
+import './helpers/init-env.helper';
+import { myDatabase } from './helpers';
 
 // Создайте подключение к базе данных SQLite
-const db = new sqlite3.Database('db/mydatabase.db');
+const db = myDatabase.db;
 
 // Функция для получения списка таблиц
 function getTables() {
